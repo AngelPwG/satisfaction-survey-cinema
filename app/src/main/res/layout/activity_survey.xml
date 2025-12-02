@@ -1,261 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".SurveyActivity">
 
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Encuesta de Satisfacción"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo"
+        app:layout_constraintBottom_toTopOf="@id/btnEnviar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
+            android:id="@+id/llContenedorPreguntas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical" />
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <RadioGroup
-                        android:id="@+id/radioP1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingBottom="30sp"
-                        android:rotationX="0">
-
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="350sp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="sans-serif"
-                            android:gravity="center"
-                            android:text="¿Con que frecuencia acudes al cine?"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/radioP1R1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="1 vez al mes" />
-
-                        <RadioButton
-                            android:id="@+id/radioP1R2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="1 vez cada semana" />
-
-                        <RadioButton
-                            android:id="@+id/radioP1R3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Más de una vez a la semana" />
-
-                        <RadioButton
-                            android:id="@+id/radioP1R4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Casi nunca" />
-                    </RadioGroup>
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <RadioGroup
-                        android:id="@+id/radioP2"
-                        android:layout_width="398dp"
-                        android:layout_height="match_parent"
-                        android:paddingBottom="30sp">
-
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="350sp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="Califique la calidad de audio de las salas"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/radioP2R1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Malo" />
-
-                        <RadioButton
-                            android:id="@+id/radioP2R2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Regular" />
-
-                        <RadioButton
-                            android:id="@+id/radioP2R3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Bueno" />
-
-                        <RadioButton
-                            android:id="@+id/radioP2R4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Excelente" />
-                    </RadioGroup>
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <RadioGroup
-                        android:id="@+id/radioP3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="30sp">
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="350sp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="Califique la atención del personal antes, durante y después de la función."
-                            android:textAlignment="center"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/radioP3R1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Malo" />
-
-                        <RadioButton
-                            android:id="@+id/radioP3R2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Regular" />
-
-                        <RadioButton
-                            android:id="@+id/radioP3R3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Bueno" />
-
-                        <RadioButton
-                            android:id="@+id/radioP3R4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Excelente" />
-                    </RadioGroup>
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <RadioGroup
-                        android:id="@+id/radioP4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="30sp">
-
-                        <TextView
-                            android:id="@+id/TextView4"
-                            android:layout_width="300sp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="Califique el nivel de higiene en baños y salas"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/radioP4R1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Malo" />
-
-                        <RadioButton
-                            android:id="@+id/radioP4R2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Regular" />
-
-                        <RadioButton
-                            android:id="@+id/radioP4R3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Bueno" />
-
-                        <RadioButton
-                            android:id="@+id/radioP4R4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Excelente" />
-                    </RadioGroup>
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <RadioGroup
-                        android:id="@+id/radioP5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="20sp">
-
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="¿Qué tipo de sala prefiere?"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/radioP5R1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="3D" />
-
-                        <RadioButton
-                            android:id="@+id/radioP5R2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Sala normal" />
-
-                        <RadioButton
-                            android:id="@+id/radioP5R3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Macro XE" />
-
-                    </RadioGroup>
-
-                </TableRow>
-            </TableLayout>
-
-            <Button
-                android:id="@+id/brnEnviar"
-                android:layout_width="match_parent"
-                android:layout_height="55sp"
-                android:backgroundTint="#D9042B"
-                android:text="Enviar" />
-
-        </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btnEnviar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Enviar Respuestas"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

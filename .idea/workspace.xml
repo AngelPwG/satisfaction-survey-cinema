@@ -5,7 +5,27 @@
       <config />
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_analytics.xml">
+        <config>
+          <theme>@style/Theme.SatisfactionSurveyApp</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+        <config>
+          <theme>@style/Theme.SatisfactionSurveyApp</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_survey.xml">
+        <config>
+          <theme>@style/Theme.SatisfactionSurveyApp</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_question.xml">
+        <config>
+          <theme>@style/Theme.SatisfactionSurveyApp</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_statistic.xml">
         <config>
           <theme>@style/Theme.SatisfactionSurveyApp</theme>
         </config>
@@ -17,16 +37,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62e71510-7c32-4b28-832b-57b598f32c7a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/AppViewModelStore.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/SharedViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/models/Preguntas.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/providers/SupabaseProvider.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/repositories/EncuestaRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_question.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_statistic.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/AdminSQLiteOpenHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/AdminSQLiteOpenHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/AdminSQLiteOpenHelper.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/AnalyticsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/AnalyticsActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/SurveyActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/pw/satisfactionsurveyapp/SurveyActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_analytics.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_analytics.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_survey.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_survey.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
@@ -38,7 +64,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\Personal\.android\avd\Medium_Phone.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\piwin\.android\avd\Medium_Phone.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -55,6 +81,16 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin Object" />
+        <option value="layoutResourceFile" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -77,8 +113,11 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "surveyy",
-    "last_opened_file_path": "C:/Users/Personal/Documents/GitHub/satisfaction-survey-cinema"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Personal/Documents/GitHub/satisfaction-survey-cinema",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -175,12 +214,12 @@
       <map>
         <entry key="com.pw.satisfactionsurveyapp">
           <value>
-            <CheckInfo lastCheckTimestamp="1761593683420" />
+            <CheckInfo lastCheckTimestamp="1764635944176" />
           </value>
         </entry>
         <entry key="com.pw.satisfactionsurveyapp.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1761593683417" />
+            <CheckInfo lastCheckTimestamp="1764635944175" />
           </value>
         </entry>
       </map>
