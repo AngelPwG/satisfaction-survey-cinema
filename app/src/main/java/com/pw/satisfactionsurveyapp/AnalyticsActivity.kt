@@ -24,6 +24,8 @@ class AnalyticsActivity : AppCompatActivity() {
     private lateinit var llStatsContainer: LinearLayout
     private lateinit var progressBar: ProgressBar
     private lateinit var tvTotal: TextView
+    private lateinit var btnRegresar: Button
+    private lateinit var btnRefrescar: Button
 
     private val repository = EncuestaRepository(SupabaseProvider.client)
 
@@ -37,9 +39,13 @@ class AnalyticsActivity : AppCompatActivity() {
             insets
         }
 
-        val btnRegresar = findViewById<Button>(R.id.buttonRegresar)
+        btnRegresar = findViewById(R.id.btnRegresar)
+        btnRefrescar = findViewById(R.id.btnRefrescar)
         btnRegresar.setOnClickListener {
             finish()
+        }
+        btnRefrescar.setOnClickListener {
+            cargarDatos()
         }
         llStatsContainer = findViewById(R.id.llStatsContainer)
         progressBar = findViewById(R.id.progressBar2)
@@ -50,7 +56,8 @@ class AnalyticsActivity : AppCompatActivity() {
 
     private fun cargarDatos() {
         progressBar.visibility = View.VISIBLE
-        llStatsContainer.removeAllViews() // Limpiar lista anterior
+        cambiarEstadoBotones(false)
+        llStatsContainer.removeAllViews()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -76,14 +83,16 @@ class AnalyticsActivity : AppCompatActivity() {
                     for (pregunta in listaPreguntas) {
                         agregarTarjetaEstadistica(pregunta, conteoVotos)
                     }
-
-                    progressBar.visibility = View.GONE
                 }
 
             } catch (e: Exception) {
                 runOnUiThread {
-                    progressBar.visibility = View.GONE
                     Toast.makeText(this@AnalyticsActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            } finally {
+                runOnUiThread {
+                    progressBar.visibility = View.GONE
+                    cambiarEstadoBotones(true)
                 }
             }
         }
@@ -129,20 +138,23 @@ class AnalyticsActivity : AppCompatActivity() {
             // B) Barra de Progreso (Horizontal)
             // Usamos el estilo predeterminado de Android para barras horizontales
             val pb = ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal)
+            pb.progressDrawable.setTint(resources.getColor(R.color.cinema_red, theme))
             pb.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                24 // Altura de la barra en pixeles (o usa dpToPx)
+                24
             )
-            pb.max = 100 // El máximo es 100%
+            pb.max = 100
             pb.progress = porcentaje
-            // Color de la barra (Opcional, usa el tinte del sistema por defecto)
 
-            // Agregar al layout
             llOpciones.addView(tvOpcion)
             llOpciones.addView(pb)
         }
 
-        // Agregar la tarjeta completa a la pantalla principal
         llStatsContainer.addView(cardView)
+    }
+
+    private fun cambiarEstadoBotones(estado: Boolean){
+        btnRegresar.isEnabled = estado
+        btnRefrescar.isEnabled = estado
     }
 }

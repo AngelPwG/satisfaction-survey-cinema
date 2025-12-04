@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="cinema_beige">#F2ECE4</color>
+    <color name="cinema_red">#D9043D</color>
 </resources>

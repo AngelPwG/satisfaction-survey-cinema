@@ -25,12 +25,15 @@ import kotlinx.coroutines.launch
 class SurveyActivity : AppCompatActivity() {
 
     private lateinit var llContenedor: LinearLayout
-    private lateinit var btnEnviar: Button
     private lateinit var progressBar: ProgressBar
 
     private val repository = EncuestaRepository(SupabaseProvider.client)
     private val storeViewModel by lazy { AppViewModelStore.provider.get(SharedViewModel::class.java) }
     private val respuestasUsuario = mutableMapOf<Long, Long>()
+    private lateinit var btnRegresar: Button
+    private lateinit var btnEnviar: Button
+    private lateinit var btnRefrescar: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +44,16 @@ class SurveyActivity : AppCompatActivity() {
             insets
         }
 
-        val btnRegresar = findViewById<Button>(R.id.buttonRegresar)
-        btnRegresar.setOnClickListener {
-            finish()
-        }
+        btnRegresar = findViewById<Button>(R.id.btnRegresar)
+        btnRefrescar = findViewById<Button>(R.id.btnRefrescar)
+        btnEnviar = findViewById<Button>(R.id.btnEnviar)
+
         llContenedor = findViewById(R.id.llContenedorPreguntas)
-        btnEnviar = findViewById(R.id.btnEnviar)
+
         progressBar = findViewById(R.id.progressBar)
 
         progressBar.visibility = View.VISIBLE
+        cambiarEstadoBotones(false)
         storeViewModel.preguntas.observe(this) { listaDePreguntas ->
             if (!listaDePreguntas.isNullOrEmpty()) {
                 Log.d("SurveyActivity", "Llegaron ${listaDePreguntas.size} preguntas")
@@ -60,11 +64,18 @@ class SurveyActivity : AppCompatActivity() {
         btnEnviar.setOnClickListener {
             enviarEncuesta()
         }
+        btnRegresar.setOnClickListener {
+            finish()
+        }
+        btnRefrescar.setOnClickListener {
+            progressBar.visibility = View.VISIBLE
+            cambiarEstadoBotones(false)
+            storeViewModel.loadCuestionario()
+        }
     }
 
     private fun cargarPreguntas(listaPreguntas: List<Pregunta>) {
         llContenedor.removeAllViews()
-        progressBar.visibility = View.VISIBLE
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 runOnUiThread {
@@ -74,10 +85,11 @@ class SurveyActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 runOnUiThread {
-                    Toast.makeText(this@SurveyActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Log.e("SurveyActivity", "Error al cargar preguntas: ${e.message}")
                 }
             } finally {
                 progressBar.visibility = View.GONE
+                cambiarEstadoBotones(true)
             }
         }
     }
@@ -111,7 +123,7 @@ class SurveyActivity : AppCompatActivity() {
         }
 
         progressBar.visibility = View.VISIBLE
-        btnEnviar.isEnabled = false
+        cambiarEstadoBotones(false)
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -132,10 +144,16 @@ class SurveyActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 runOnUiThread {
                     progressBar.visibility = View.GONE
-                    btnEnviar.isEnabled = true
+                    cambiarEstadoBotones(true)
                     Toast.makeText(this@SurveyActivity, "Error al enviar: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
+    }
+
+    private fun cambiarEstadoBotones(estado: Boolean){
+        btnEnviar.isEnabled = estado
+        btnRegresar.isEnabled = estado
+        btnRefrescar.isEnabled = estado
     }
 }

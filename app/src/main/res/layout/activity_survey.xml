@@ -39,7 +39,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginHorizontal="16dp"
         app:layout_constraintTop_toBottomOf="@id/tvTitulo"
-        app:layout_constraintBottom_toTopOf="@id/btnEnviar"
+        app:layout_constraintBottom_toTopOf="@id/btnRefrescar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -52,18 +52,29 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/btnRefrescar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Refrescar"
+        android:textSize="18sp"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnEnviar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#D9043D" />
+    <Button
         android:id="@+id/btnEnviar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Enviar Respuestas"
         android:textSize="18sp"
         android:layout_marginHorizontal="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonRegresar"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegresar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:backgroundTint="#D9043D" />
     <Button
-        android:id="@+id/buttonRegresar"
+        android:id="@+id/btnRegresar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:textSize="18sp"
