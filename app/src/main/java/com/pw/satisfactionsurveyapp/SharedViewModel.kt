@@ -16,10 +16,10 @@ class SharedViewModel: ViewModel() {
     val preguntas: LiveData<List<Pregunta>> get() = _preguntas
 
     init{
-        loadUsers()
+        loadCuestionario()
     }
 
-    fun loadUsers(){
+    fun loadCuestionario(){
         viewModelScope.launch {
             try {
                 _preguntas.value = encuestaRepository.getCuestionario()

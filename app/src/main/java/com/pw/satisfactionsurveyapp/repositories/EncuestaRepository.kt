@@ -11,7 +11,7 @@ class EncuestaRepository (val supabase: SupabaseClient) {
 
     suspend fun getCuestionario(): List<Pregunta> = supabase.postgrest["preguntas"].select(columns = Columns.raw("*, opciones(*)")).decodeList<Pregunta>()
 
-    suspend fun addRespuestas(respuestas: List<RespuestaUsuario>) = supabase.postgrest["respuestas_usuario"].insert(respuestas)
+    suspend fun addRespuestas(respuestas: List<RespuestaUsuario>) = supabase.postgrest["respuestas"].insert(respuestas)
 
     suspend fun getAllRespuestas(): List<RespuestaUsuario> = supabase.postgrest["respuestas"].select().decodeList<RespuestaUsuario>()
 }

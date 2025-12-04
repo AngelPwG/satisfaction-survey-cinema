@@ -19,10 +19,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val button = findViewById<Button>(R.id.button1)
+        val btnStart = findViewById<Button>(R.id.btnStart)
+        btnStart.setOnClickListener {
+            val intento1 = Intent(this, SurveyActivity::class.java)
+            startActivity(intento1)
+        }
 
-        button.setOnClickListener {
-            startActivity(Intent(this, SurveyActivity::class.java))
+        val btnEstadisticas = findViewById<Button>(R.id.btnEstadisticas)
+        btnEstadisticas.setOnClickListener {
+            val intento1 = Intent(this, AnalyticsActivity::class.java)
+            startActivity(intento1)
         }
     }
 }

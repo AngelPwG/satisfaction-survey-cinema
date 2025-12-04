@@ -1,6 +1,7 @@
 package com.pw.satisfactionsurveyapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
@@ -27,81 +28,85 @@ class SurveyActivity : AppCompatActivity() {
     private lateinit var btnEnviar: Button
     private lateinit var progressBar: ProgressBar
 
-    // Repositorio y Mapas
     private val repository = EncuestaRepository(SupabaseProvider.client)
+    private val storeViewModel by lazy { AppViewModelStore.provider.get(SharedViewModel::class.java) }
     private val respuestasUsuario = mutableMapOf<Long, Long>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_survey) // Asegúrate que sea el XML con ScrollView
+        setContentView(R.layout.activity_survey)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
+        val btnRegresar = findViewById<Button>(R.id.buttonRegresar)
+        btnRegresar.setOnClickListener {
+            finish()
+        }
         llContenedor = findViewById(R.id.llContenedorPreguntas)
         btnEnviar = findViewById(R.id.btnEnviar)
         progressBar = findViewById(R.id.progressBar)
 
-        cargarPreguntas()
+        progressBar.visibility = View.VISIBLE
+        storeViewModel.preguntas.observe(this) { listaDePreguntas ->
+            if (!listaDePreguntas.isNullOrEmpty()) {
+                Log.d("SurveyActivity", "Llegaron ${listaDePreguntas.size} preguntas")
+                cargarPreguntas(listaDePreguntas)
+            }
+        }
 
         btnEnviar.setOnClickListener {
             enviarEncuesta()
         }
     }
 
-    private fun cargarPreguntas() {
-        progressBar.visibility = View.VISIBLE
-        // Limpiamos por si acaso
+    private fun cargarPreguntas(listaPreguntas: List<Pregunta>) {
         llContenedor.removeAllViews()
-
+        progressBar.visibility = View.VISIBLE
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val listaPreguntas = repository.getCuestionario()
-
                 runOnUiThread {
-                    // AQUÍ ESTÁ EL TRUCO: Un ciclo simple
                     for (pregunta in listaPreguntas) {
                         agregarVistaPregunta(pregunta)
                     }
-                    progressBar.visibility = View.GONE
                 }
             } catch (e: Exception) {
                 runOnUiThread {
                     Toast.makeText(this@SurveyActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
+            } finally {
+                progressBar.visibility = View.GONE
             }
         }
     }
 
-    // Esta función reemplaza al Adapter
     private fun agregarVistaPregunta(pregunta: Pregunta) {
-        // 1. "Inflamos" el XML de la tarjeta (item_question.xml)
         val view = layoutInflater.inflate(R.layout.item_question, llContenedor, false)
 
-        // 2. Buscamos los controles DENTRO de esa tarjeta
         val tvTexto = view.findViewById<TextView>(R.id.tvTextoPregunta)
         val rgOpciones = view.findViewById<RadioGroup>(R.id.rgOpciones)
 
-        // 3. Llenamos datos
         tvTexto.text = pregunta.texto
 
-        // 4. Creamos los RadioButtons dinámicamente
         pregunta.opciones.forEach { opcion ->
             val rb = RadioButton(this)
             rb.text = opcion.texto
-            rb.id = View.generateViewId() // Importante para que funcionen los clicks
+            rb.id = View.generateViewId()
 
             rb.setOnClickListener {
-                // Guardamos en el mapa
                 respuestasUsuario[pregunta.id] = opcion.id
             }
             rgOpciones.addView(rb)
         }
 
-        // 5. Agregamos la tarjeta completa al contenedor vertical
         llContenedor.addView(view)
     }
 
     private fun enviarEncuesta() {
-        if (respuestasUsuario.isEmpty()) {
-            Toast.makeText(this, "Contesta algo primero", Toast.LENGTH_SHORT).show()
+        if (respuestasUsuario.size != llContenedor.childCount){
+            Toast.makeText(this, "Contesta todas las preguntas", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -110,7 +115,6 @@ class SurveyActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // 1. Convertir el mapa a la lista de objetos que pide Supabase
                 val listaParaEnviar = respuestasUsuario.map { (preguntaId, opcionId) ->
                     RespuestaUsuario(
                         preguntaId = preguntaId,
@@ -118,12 +122,11 @@ class SurveyActivity : AppCompatActivity() {
                     )
                 }
 
-                // 2. Enviar al repositorio
                 repository.addRespuestas(listaParaEnviar)
 
                 runOnUiThread {
                     Toast.makeText(this@SurveyActivity, "¡Encuesta enviada con éxito!", Toast.LENGTH_LONG).show()
-                    finish() // Cierra la pantalla
+                    finish()
                 }
 
             } catch (e: Exception) {

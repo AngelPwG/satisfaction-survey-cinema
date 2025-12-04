@@ -3,6 +3,7 @@ package com.pw.satisfactionsurveyapp
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -30,20 +31,20 @@ class AnalyticsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_analytics)
-
-        // Ajuste de bordes
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.llStatsContainer)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Inicializar vistas
+        val btnRegresar = findViewById<Button>(R.id.buttonRegresar)
+        btnRegresar.setOnClickListener {
+            finish()
+        }
         llStatsContainer = findViewById(R.id.llStatsContainer)
-        progressBar = findViewById(R.id.pbAnalytics)
+        progressBar = findViewById(R.id.progressBar2)
         tvTotal = findViewById(R.id.tvTotalEncuestas)
 
-        // Cargar datos automáticamente al entrar
         cargarDatos()
     }
 
@@ -53,10 +54,8 @@ class AnalyticsActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // PASO 1: Traer las preguntas (Catálogo)
                 val listaPreguntas = repository.getCuestionario()
 
-                // PASO 2: Traer TODAS las respuestas (Historial)
                 val listaRespuestas = repository.getAllRespuestas()
 
                 // PASO 3: Matemáticas (Contar votos)
